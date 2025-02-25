@@ -3,12 +3,19 @@
 
 #include <iostream>
 
-class JsonException: std::exception {
+namespace json {
 
-};
+    class JsonException: std::exception {
 
-class JsonTypeMismatchException: JsonException {
-        
+    };
+
+    class JsonInvalidSyntaxException: JsonException {
+
+    };
+
+    class JsonTypeMismatchException: JsonException {
+            
+    };
 };
 
 #endif

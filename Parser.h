@@ -1,11 +1,8 @@
 #ifndef PARSER_H
 #define PARSER_H
 
-#include <stack>
-#include <string>
-#include <map>
-
-using std::string;
+#include "utils.h"
+#include "JsonNode.h"
 
 namespace json {
 
@@ -14,15 +11,44 @@ namespace json {
 
     class JsonParser {
         private:
-            const string& raw_json;
-            
-        public:
-            JsonParser(const string& src);
+            const string raw_json;
 
+            /**
+             * Skips whitespace characters until reaching a non-whitespace character.
+             * If called on a non-whitespace character, returns false.
+             */
+            bool skipWhitespace(int& index);
+
+            /**
+             * Find corresponding pair with brace.
+             */
             int findBracePairs(int start);
-            int skipWhitespace(int index);
-            
-    };
+
+            int parseString(int start);
+
+            int parseNumber(int start);
+
+        public: 
+            /**
+             * Initialize parser with JSON string.
+             */
+            JsonParser(const string src);
+
+            /**
+             * Converts JSON string to JsonNode instance
+             */
+            // json::JsonNode toInstance();
+
+            /**
+             * 
+             */
+            string toString();
+    };  
+    
+    /**
+     * Loads JSON string from file.
+     */
+    const JsonParser load(const string& filename);
 }
 
 #endif
